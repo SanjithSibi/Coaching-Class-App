@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tcda_app/Users/signin_screen.dart';
+import 'package:tcda_app/doubt/signin_screen.dart';
+import 'package:tcda_app/trail/login.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class OnlineClass extends StatefulWidget {
@@ -26,7 +27,7 @@ class _OnlineClassState extends State<OnlineClass> {
               FirebaseAuth.instance.signOut().then((value) {
                 print("Signed out");
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SignInScreen()));
+                    MaterialPageRoute(builder: (context) => LoginPage()));
               });
             },
           ),
@@ -36,9 +37,9 @@ class _OnlineClassState extends State<OnlineClass> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
-                height: 20,
-              ),
+              // SizedBox(
+              //   height: 20,
+              // ),
               InkWell(
                 child: Container(
                   margin: const EdgeInsets.all(20.0),
@@ -46,7 +47,7 @@ class _OnlineClassState extends State<OnlineClass> {
                   width: 200,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/Online calendar-pana.png'),
+                      image: AssetImage('assets/darwings1.png'),
                       fit: BoxFit.scaleDown,
                     ),
                     color: Colors.white,
@@ -114,7 +115,7 @@ class _OnlineClassState extends State<OnlineClass> {
                     width: 200,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/Online learning-cuate.png'),
+                        image: AssetImage('assets/reasoning.png'),
                         fit: BoxFit.scaleDown,
                       ),
                       color: Colors.white,
@@ -143,7 +144,7 @@ class _OnlineClassState extends State<OnlineClass> {
                     width: 200,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/Online test-pana.png'),
+                        image: AssetImage('assets/communicate.png'),
                         fit: BoxFit.scaleDown,
                       ),
                       color: Colors.white,
@@ -172,7 +173,7 @@ class _OnlineClassState extends State<OnlineClass> {
                     width: 200,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/Online test-pana.png'),
+                        image: AssetImage('assets/gk.png'),
                         fit: BoxFit.scaleDown,
                       ),
                       color: Colors.white,
@@ -191,6 +192,9 @@ class _OnlineClassState extends State<OnlineClass> {
                   onTap: () async {
                     launch('https://meet.google.com/cgu-txjd-afk');
                   }),
+              SizedBox(
+                height: 20,
+              ),
               const Text("GK And Current Affairs"),
               SizedBox(
                 height: 50,

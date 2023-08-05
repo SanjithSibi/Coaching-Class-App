@@ -59,7 +59,7 @@ Scaffold(
     import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:neumorphic_button/neumorphic_button.dart';
-import 'package:tcda_app/Users/signin_screen.dart';
+import 'package:tcda_app/doubt/signin_screen.dart';
 
 // class HomeScreen extends StatefulWidget {
 //   const  HomeScreen({super.key});
@@ -315,3 +315,1138 @@ class _MyApppState extends State<MyAppp> {
     );
   }
 }
+
+
+
+
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: Color.fromARGB(234, 255, 255, 255),
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(200, 255, 255, 255),
+          title: const Text(
+            "Dash board",
+            style: TextStyle(
+                color: Color.fromRGBO(0, 0, 0, 1),
+                fontSize: 17,
+                fontFamily: AutofillHints.newUsername),
+          ),
+          leading: const Icon(
+            Icons.menu,
+            color: Colors.black,
+            size: 18,
+          ),
+        ),
+        body: SingleChildScrollView(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 8,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 132,
+                    width: 99,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 250, 250, 250),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(14),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 200, 201, 241),
+                          blurRadius: 6.0,
+                          spreadRadius: 2.0,
+                          offset: Offset(0.0, 0.0),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: 64,
+                          width: 180,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                'https://i.pinimg.com/736x/fc/fb/58/fcfb5858aa6d4c2a4214dab15ac6957a.jpg',
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Text(
+                          "Today joining",
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        Container(
+                          height: 22,
+                          width: 22,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 241, 68, 68)),
+                          child: const Center(
+                            child: Text(
+                              "25",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Container(
+                    height: 132,
+                    width: 98,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 250, 250, 250),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(14),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 200, 201, 241),
+                          blurRadius: 6.0,
+                          spreadRadius: 2.0,
+                          offset: Offset(0.0, 0.0),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: 72,
+                          width: 180,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                'https://image.freepik.com/free-vector/university-graduates_151150-2146.jpg',
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Text(
+                          "monthly joining",
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        Container(
+                          height: 22,
+                          width: 22,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 241, 68, 68)),
+                          child: const Center(
+                            child: Text(
+                              "25",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Container(
+                    height: 132,
+                    width: 98,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 250, 250, 250),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(14),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 200, 201, 241),
+                          blurRadius: 6.0,
+                          spreadRadius: 2.0,
+                          offset: Offset(0.0, 0.0),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: 64,
+                          width: 180,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                'https://th.bing.com/th/id/OIP.ubKrVOgUZn9vKUkAoMF-NQHaHL?pid=ImgDet&w=1858&h=1803&rs=1',
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        const Text(
+                          "yearly joining",
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        Container(
+                          height: 22,
+                          width: 22,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 241, 68, 68)),
+                          child: const Center(
+                            child: Text(
+                              "25",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 132,
+                    width: 98,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 250, 250, 250),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(14),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 200, 201, 241),
+                          blurRadius: 6.0,
+                          spreadRadius: 2.0,
+                          offset: Offset(0.0, 0.0),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: 64,
+                          width: 180,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                'https://yt3.ggpht.com/a/AATXAJzt4CB9A8NGuSK1y78HKbgMIfErf1Y-CJG4RYrpRQ=s900-c-k-c0xffffffff-no-rj-mo',
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Text(
+                          "Today collection",
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          height: 22,
+                          width: 22,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 241, 68, 68)),
+                          child: const Center(
+                            child: Text(
+                              "25",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Container(
+                    height: 132,
+                    width: 98,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 250, 250, 250),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(14),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 200, 201, 241),
+                          blurRadius: 6.0,
+                          spreadRadius: 2.0,
+                          offset: Offset(0.0, 0.0),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: 64,
+                          width: 180,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                'https://yt3.ggpht.com/a/AATXAJzt4CB9A8NGuSK1y78HKbgMIfErf1Y-CJG4RYrpRQ=s900-c-k-c0xffffffff-no-rj-mo',
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Text(
+                          "monthly collection",
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          height: 22,
+                          width: 22,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 241, 68, 68)),
+                          child: const Center(
+                            child: Text(
+                              "25",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Container(
+                    height: 132,
+                    width: 98,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 250, 250, 250),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(14),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 200, 201, 241),
+                          blurRadius: 6.0,
+                          spreadRadius: 2.0,
+                          offset: Offset(0.0, 0.0),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: 64,
+                          width: 178,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                'https://yt3.ggpht.com/a/AATXAJzt4CB9A8NGuSK1y78HKbgMIfErf1Y-CJG4RYrpRQ=s900-c-k-c0xffffffff-no-rj-mo',
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Text(
+                          "Today experience",
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          height: 22,
+                          width: 22,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 241, 68, 68)),
+                          child: const Center(
+                            child: Text(
+                              "25",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 132,
+                    width: 98,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 250, 250, 250),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(14),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 200, 201, 241),
+                          blurRadius: 6.0,
+                          spreadRadius: 2.0,
+                          offset: Offset(0.0, 0.0),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: 68,
+                          width: 178,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  'https://media.istockphoto.com/vectors/income-increase-strategy-financial-high-return-on-investment-fund-vector-id957360650?k=6&m=957360650&s=612x612&w=0&h=VlgrO0mLkKkypwpZUZKtp86-7Mj9hRcG_LEN18FAVJ8='),
+                            ),
+                          ),
+                        ),
+                        const Text(
+                          "monthly expense",
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          height: 22,
+                          width: 22,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 241, 68, 68)),
+                          child: const Center(
+                            child: Text(
+                              "25",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Container(
+                    height: 132,
+                    width: 98,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 250, 250, 250),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(14),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 200, 201, 241),
+                          blurRadius: 6.0,
+                          spreadRadius: 2.0,
+                          offset: Offset(0.0, 0.0),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: 68,
+                          width: 178,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  'https://media.istockphoto.com/vectors/income-increase-strategy-financial-high-return-on-investment-fund-vector-id957360650?k=6&m=957360650&s=612x612&w=0&h=VlgrO0mLkKkypwpZUZKtp86-7Mj9hRcG_LEN18FAVJ8='),
+                            ),
+                          ),
+                        ),
+                        const Text(
+                          "yearly expense",
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          height: 22,
+                          width: 22,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 241, 68, 68)),
+                          child: const Center(
+                            child: Text(
+                              "25",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Container(
+                    height: 132,
+                    width: 98,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/download.png"),
+                        fit: BoxFit.cover,
+                      ),
+                      color: Color.fromARGB(255, 250, 250, 250),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(14),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 200, 201, 241),
+                          blurRadius: 6.0,
+                          spreadRadius: 2.0,
+                          offset: Offset(0.0, 0.0),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: 68,
+                          width: 178,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  'https://media.istockphoto.com/vectors/income-increase-strategy-financial-high-return-on-investment-fund-vector-id957360650?k=6&m=957360650&s=612x612&w=0&h=VlgrO0mLkKkypwpZUZKtp86-7Mj9hRcG_LEN18FAVJ8='),
+                            ),
+                          ),
+                        ),
+                        const Text(
+                          "Total expense",
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          height: 22,
+                          width: 22,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 241, 68, 68)),
+                          child: const Center(
+                            child: Text(
+                              "25",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 132,
+                    width: 98,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/download.png"),
+                        fit: BoxFit.cover,
+                      ),
+                      color: Color.fromARGB(255, 250, 250, 250),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(14),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 200, 201, 241),
+                          blurRadius: 6.0,
+                          spreadRadius: 2.0,
+                          offset: Offset(0.0, 0.0),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: 68,
+                          width: 178,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  'https://cdn3.iconfinder.com/data/icons/schooling-flat/614/4057_-_Male_Graduate-512.png'),
+                            ),
+                          ),
+                        ),
+                        const Text(
+                          "Live student",
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          height: 22,
+                          width: 22,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 241, 68, 68)),
+                          child: const Center(
+                            child: Text(
+                              "25",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Container(
+                    height: 132,
+                    width: 98,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 250, 250, 250),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(14),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 200, 201, 241),
+                          blurRadius: 6.0,
+                          spreadRadius: 2.0,
+                          offset: Offset(0.0, 0.0),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: 68,
+                          width: 178,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  'https://www.nexuspropertymanagement.com/sites/default/files/Realtor.jpg'),
+                            ),
+                          ),
+                        ),
+                        const Text(
+                          "Left student",
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          height: 22,
+                          width: 22,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 241, 68, 68)),
+                          child: const Center(
+                            child: Text(
+                              "25",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Container(
+                    height: 132,
+                    width: 98,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 250, 250, 250),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(14),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 200, 201, 241),
+                          blurRadius: 6.0,
+                          spreadRadius: 2.0,
+                          offset: Offset(0.0, 0.0),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: 68,
+                          width: 178,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  'https://th.bing.com/th/id/OIP.tW6XRjkXxFJPDGbn_qsFtwHaIN?pid=ImgDet&w=1488&h=1649&rs=1'),
+                            ),
+                          ),
+                        ),
+                        const Text(
+                          "Due Ammount",
+                          style: TextStyle(
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          height: 22,
+                          width: 22,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 241, 68, 68)),
+                          child: const Center(
+                            child: Text(
+                              "25",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 132,
+                    width: 98,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 250, 250, 250),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(14),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 200, 201, 241),
+                          blurRadius: 6.0,
+                          spreadRadius: 2.0,
+                          offset: Offset(0.0, 0.0),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: 68,
+                          width: 178,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  'https://th.bing.com/th/id/OIP.uPwWQq-lj7ARyhFYfHwKXQAAAA?pid=ImgDet&w=300&h=300&rs=1'),
+                            ),
+                          ),
+                        ),
+                        const Text(
+                          "Due Amount Reminder",
+                          style: TextStyle(
+                            fontSize: 8,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          height: 22,
+                          width: 22,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 241, 68, 68)),
+                          child: const Center(
+                            child: Text(
+                              "25",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Container(
+                    height: 132,
+                    width: 98,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 250, 250, 250),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(14),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 200, 201, 241),
+                          blurRadius: 6.0,
+                          spreadRadius: 2.0,
+                          offset: Offset(0.0, 0.0),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: 68,
+                          width: 178,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  'https://fintos.tech/wp-content/uploads/2021/07/Loan-Application-768x576.png'),
+                            ),
+                          ),
+                        ),
+                        const Text(
+                          "Today Due Reminder",
+                          style: TextStyle(
+                            fontSize: 8,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          height: 22,
+                          width: 22,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 241, 68, 68)),
+                          child: const Center(
+                            child: Text(
+                              "25",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Container(
+                    height: 132,
+                    width: 98,
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 250, 250, 250),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(14),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 200, 201, 241),
+                          blurRadius: 6.0,
+                          spreadRadius: 2.0,
+                          offset: Offset(0.0, 0.0),
+                        ),
+                      ],
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          height: 68,
+                          width: 178,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                  'https://th.bing.com/th/id/OIP.jnHo_X4kb8stD-5h9XauiQHaIr?pid=ImgDet&rs=1'),
+                            ),
+                          ),
+                        ),
+                        const Text(
+                          "Today follow up",
+                          style: TextStyle(
+                            fontSize: 8,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          height: 22,
+                          width: 22,
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color.fromARGB(255, 241, 68, 68)),
+                          child: const Center(
+                            child: Text(
+                              "25",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+if (pickedFile != null) {
+      // String filename = pickedFile.files[0].name;
+      // File file = File(pickedFile.files[0].path!);
+     uploadPDF(filename, file);
+      // await _firebaseFirestore.collection("pdfs").add({
+      //   "name": filename,
+      //   "url": downloadLink,
+      // });
+      print("Pdf Uploaded Successfully");
+    }
+
+
+
+     floatingActionButton: GroupedActionButtons(
+          distance: 112,
+          openButtonIcon: const Icon(Icons.edit),
+          closeButtonIcon: const Icon(Icons.close),
+          children: [
+            ActionButton(
+              onPressed: () => print('b1'),
+              backgroundColor: Colors.red,
+              icon: const Icon(Icons.abc_rounded),
+            ),
+            ActionButton(
+              onPressed: () => print('b2'),
+              icon: const Icon(Icons.ac_unit),
+            ),
+            ActionButton(
+              onPressed: () => print('b3'),
+              icon: const Icon(Icons.access_alarms),
+            ),
+          ],
+        ),
+
+
+                floatingActionButton: Container(
+          height: 42,
+          width: 42,
+          child: FloatingActionButton(
+            onPressed: () => launch("tel://8248192468"),
+            child: Icon(Icons.call_sharp),
+            backgroundColor: Color.fromARGB(255, 250, 27, 27),
+          ),
+        ),

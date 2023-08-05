@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:tcda_app/Admin/dashboard.dart';
 import 'package:tcda_app/Users/existing_users_icon_page.dart';
 
 import '../reusable_widgets/reusable_widgets.dart';
@@ -20,24 +21,24 @@ class _DeleteUserState extends State<DeleteUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: const Text(
-          "Delete User",
-          style: TextStyle(
-              fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-      ),
+      // extendBodyBehindAppBar: true,
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0,
+      //   title: const Text(
+      //     "Delete User",
+      //     style: TextStyle(
+      //         fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+      //   ),
+      // ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
             gradient: LinearGradient(colors: [
           hexStringToColor("FF7817"),
-          hexStringToColor("122C6C"),
-          // hexStringToColor("FF7817")
+          hexStringToColor("FF7817"),
+          // hexStringToColor("122C6C")
         ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         child: SingleChildScrollView(
           child: Padding(
@@ -45,7 +46,17 @@ class _DeleteUserState extends State<DeleteUser> {
                 20, MediaQuery.of(context).size.height * 0.2, 20, 0),
             child: Column(
               children: <Widget>[
-                SizedBox(height: 20),
+                Text(
+                  "Delete User",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 40,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
                 reusableTextField(
                   "Enter Email Id",
                   Icons.person_outline,
@@ -76,7 +87,7 @@ class _DeleteUserState extends State<DeleteUser> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeScreen()),
+                                builder: (context) => DashBoard()),
                           );
                         }).catchError((error) {
                           print("Error deleting user: ${error.toString()}");

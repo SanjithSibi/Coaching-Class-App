@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tcda_app/Users/signin_screen.dart';
+import 'package:tcda_app/doubt/signin_screen.dart';
+import 'package:tcda_app/trail/login.dart';
 
 class Attendance extends StatefulWidget {
   const Attendance({super.key});
@@ -25,7 +26,7 @@ class _AttendanceState extends State<Attendance> {
               FirebaseAuth.instance.signOut().then((value) {
                 print("Signed out");
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SignInScreen()));
+                    MaterialPageRoute(builder: (context) => LoginPage()));
               });
             },
           ),

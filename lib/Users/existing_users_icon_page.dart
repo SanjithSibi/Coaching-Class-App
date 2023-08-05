@@ -4,9 +4,10 @@ import 'package:neumorphic_button/neumorphic_button.dart';
 import 'package:tcda_app/Users/Attendance.dart';
 import 'package:tcda_app/Users/Redirect_to_google_meet.dart';
 import 'package:tcda_app/Users/online_test.dart';
-import 'package:tcda_app/Users/signin_screen.dart';
-import 'package:tcda_app/Users/intro.dart';
+import 'package:tcda_app/doubt/signin_screen.dart';
+import 'package:tcda_app/New%20User/intro.dart';
 import 'package:tcda_app/Users/Materials.dart';
+import 'package:tcda_app/trail/login.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class HomeScreen extends StatelessWidget {
               FirebaseAuth.instance.signOut().then((value) {
                 print("Signed out");
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SignInScreen()));
+                    MaterialPageRoute(builder: (context) => LoginPage()));
               });
             },
           ),

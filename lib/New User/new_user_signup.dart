@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tcda_app/Users/existing_users_icon_page.dart';
-import 'package:tcda_app/Users/intro.dart';
+import 'package:tcda_app/New%20User/intro.dart';
 import 'package:tcda_app/utils/color_utils.dart';
 import 'package:select_form_field/select_form_field.dart';
 import '../reusable_widgets/reusable_widgets.dart';
@@ -128,7 +127,7 @@ class _NewUserState extends State<NewUser> {
               ),
               signInSignUpButton(context, true, () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Animatio()));
+                    MaterialPageRoute(builder: (context) => NewUserIntro()));
               }),
             ]),
           ),

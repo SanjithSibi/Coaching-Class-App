@@ -2,8 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tcda_app/Users/Attendance.dart';
 import 'package:tcda_app/Users/question_papers.dart';
-import 'package:tcda_app/Users/signin_screen.dart';
+import 'package:tcda_app/doubt/signin_screen.dart';
 import 'package:tcda_app/Users/study_material.dart';
+import 'package:tcda_app/trail/login.dart';
 
 class StudyMaterials extends StatelessWidget {
   const StudyMaterials({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class StudyMaterials extends StatelessWidget {
               FirebaseAuth.instance.signOut().then((value) {
                 print("Signed out");
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SignInScreen()));
+                    MaterialPageRoute(builder: (context) => LoginPage()));
               });
             },
           ),
