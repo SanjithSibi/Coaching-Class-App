@@ -1,16 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tcda_app/doubt/signin_screen.dart';
-import 'package:tcda_app/trail/login.dart';
+import 'package:tcda_app/login.dart';
 
-class Attendance extends StatefulWidget {
-  const Attendance({super.key});
+class QuestionPapers extends StatefulWidget {
+  const QuestionPapers({super.key});
 
   @override
-  State<Attendance> createState() => _AttendanceState();
+  State<QuestionPapers> createState() => _QuestionPapersState();
 }
 
-class _AttendanceState extends State<Attendance> {
+class _QuestionPapersState extends State<QuestionPapers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +17,7 @@ class _AttendanceState extends State<Attendance> {
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
         automaticallyImplyLeading: false,
-        title: Text('Attendance'),
+        title: Text('Sample Question Papers'),
         actions: [
           IconButton(
             icon: Icon(Icons.logout),

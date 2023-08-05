@@ -1,6 +1,8 @@
 import 'package:floating_bubbles/floating_bubbles.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:nice_loading_button/nice_loading_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:grouped_action_buttons/grouped_action_buttons_package.dart';
 
@@ -21,15 +23,15 @@ class _NewUserIntroState extends State<NewUserIntro> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      color: Color.fromARGB(234, 255, 255, 255),
+      color: const Color.fromARGB(234, 255, 255, 255),
       home: Scaffold(
-        backgroundColor: Color.fromARGB(234, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(234, 255, 255, 255),
         body: SingleChildScrollView(
           child: Stack(
             children: [
               Positioned.fill(
                 child: Container(
-                  color: Color.fromARGB(234, 255, 255, 255),
+                  color: const Color.fromARGB(234, 255, 255, 255),
                 ),
               ),
               Positioned.fill(
@@ -38,7 +40,7 @@ class _NewUserIntroState extends State<NewUserIntro> {
                   colorsOfBubbles: [
                     Colors.green.withAlpha(30),
                     Colors.red,
-                    Color.fromARGB(255, 21, 40, 209),
+                    const Color.fromARGB(255, 21, 40, 209),
                   ],
                   sizeFactor: 0.16,
                   opacity: 70,
@@ -69,7 +71,7 @@ class _NewUserIntroState extends State<NewUserIntro> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -84,14 +86,6 @@ class _NewUserIntroState extends State<NewUserIntro> {
                           ),
                           const SizedBox(
                             height: 12,
-                          ),
-                          const Text(
-                            'Created by TCDA',
-                            style: TextStyle(
-                                fontSize: 16,
-                                height: 1.2,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromARGB(255, 66, 66, 66)),
                           ),
                           const SizedBox(
                             height: 8,
@@ -127,51 +121,26 @@ class _NewUserIntroState extends State<NewUserIntro> {
                             height: 150,
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 102, 18, 236),
+                                color: Colors.white,
                                 border: Border.all(color: Colors.black12),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(16))),
                             child: const Image(
-                                image: AssetImage(
-                              'assets/intro.png',
-                            )),
+                                image: NetworkImage(
+                                    "https://th.bing.com/th/id/OIP.pguRErOLpYp1o1AdTd-uXgAAAA?pid=ImgDet&rs=1")),
                           ),
                           const SizedBox(
                             height: 12,
                           ),
                           const Row(
                             children: [
-                              Text(
-                                'T',
-                                style: TextStyle(
-                                  color: Color.fromARGB(255, 255, 30, 0),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
+                              Image(
+                                image: AssetImage(
+                                  "assets/logo.png",
                                 ),
-                              ),
-                              Text(
-                                'C',
-                                style: TextStyle(
-                                  color: Color.fromARGB(255, 255, 166, 0),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              Text(
-                                'D',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(35, 190, 3, 1),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              Text(
-                                'A',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(16, 3, 190, 1),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                ),
+                                fit: BoxFit.fitWidth,
+                                width: 70,
+                                height: 70,
                               )
                             ],
                           ),
@@ -180,7 +149,7 @@ class _NewUserIntroState extends State<NewUserIntro> {
                           ),
                           Container(
                             padding: const EdgeInsets.all(16),
-                            height: 300,
+                            height: 320,
                             width: MediaQuery.of(context).size.width,
                             decoration: const BoxDecoration(
                               color: Color.fromARGB(255, 224, 224, 241),
@@ -236,7 +205,7 @@ class _NewUserIntroState extends State<NewUserIntro> {
                                     ],
                                   ),
                                   const SizedBox(
-                                    height: 8,
+                                    height: 16,
                                   ),
                                   const Row(
                                     children: [
@@ -248,184 +217,8 @@ class _NewUserIntroState extends State<NewUserIntro> {
                                         children: [
                                           Row(
                                             children: [
-                                              Icon(
-                                                Icons.circle,
-                                                size: 8,
-                                                color: Color.fromARGB(
-                                                    255, 102, 18, 236),
-                                              ),
-                                              SizedBox(
-                                                width: 12,
-                                                height: 16,
-                                              ),
                                               Text(
-                                                'The creative Design Academy(TCDA) is a premier ',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                width: 20,
-                                                height: 16,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'NIFT Coaching Centrem in Coimbatore that offers ',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      fontSize: 12,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 2,
-                                                  ),
-                                                  Text(
-                                                    'Comprehensive and hands-on learing experiences ',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      fontSize: 12,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 2,
-                                                  ),
-                                                  Text(
-                                                    'To aspiring designers.',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      fontSize: 11,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  const Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 4,
-                                        height: 38,
-                                      ),
-                                      Icon(
-                                        Icons.circle,
-                                        size: 8,
-                                        color:
-                                            Color.fromARGB(255, 102, 18, 236),
-                                      ),
-                                      SizedBox(
-                                        width: 12,
-                                        height: 16,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            height: 12,
-                                          ),
-                                          Text(
-                                            'This instiution was developed,designed,and put',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 12,
-                                            ),
-                                          ),
-                                          Text(
-                                            'Into use in 2015.',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 11,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  const Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 4,
-                                        height: 1,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            height: 12,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.circle,
-                                                size: 8,
-                                                color: Color.fromARGB(
-                                                    255, 102, 18, 236),
-                                              ),
-                                              SizedBox(
-                                                width: 12,
-                                              ),
-                                              Text(
-                                                'In oreder to give the students a creative learnig',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Text(
-                                                'Experience,TCDA employs an approach that is a ',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Text(
-                                                'Good combination of interactive, workshop-based',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Text(
-                                                'And practical.',
+                                                'What sets TCDA apart is our team of passionate and\nexperienced instructors who are not just educators\nbut also industry professionals. They bring real-world\nexpertise and contemporary insights into the\nclassroom, ensuring that our students receive\nrelevant and up-to-date knowledge.',
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w700,
                                                   fontSize: 12,
@@ -437,70 +230,17 @@ class _NewUserIntroState extends State<NewUserIntro> {
                                       ),
                                     ],
                                   ),
+                                  const SizedBox(
+                                    height: 22,
+                                  ),
                                   const Row(
                                     children: [
-                                      SizedBox(
-                                        width: 4,
-                                        height: 1,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            height: 12,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.circle,
-                                                size: 8,
-                                                color: Color.fromARGB(
-                                                    255, 102, 18, 236),
-                                              ),
-                                              SizedBox(
-                                                width: 12,
-                                              ),
-                                              Text(
-                                                'TCDA is without a doubt entry coaching cenntre ',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Text(
-                                                'Due to its emphasis on creative thinking and ',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Text(
-                                                'Teaching techniques',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                      Text(
+                                        'We offer comprehensive courses that cover various\naspects of design, from the fundamentals to advanced\ntechniques. Our curriculum integrates theory and\npractical application, encouraging hands-on projects\nand collaborative learning experiences. Moreover,\nwe regularly organize workshops, guest lectures,\nand design competitions to enhance students\nexposure and encourage networking with\nprofessionals in the field.',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 12,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -513,7 +253,7 @@ class _NewUserIntroState extends State<NewUserIntro> {
                           ),
                           Container(
                             padding: EdgeInsets.all(16),
-                            height: 240,
+                            height: 270,
                             width: MediaQuery.of(context).size.width,
                             decoration: const BoxDecoration(
                               color: Color.fromARGB(255, 224, 224, 241),
@@ -565,85 +305,8 @@ class _NewUserIntroState extends State<NewUserIntro> {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 8,
-                                  ),
-                                  const Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 3,
-                                        height: 38,
-                                      ),
-                                      Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.circle,
-                                                size: 8,
-                                                color: Color.fromARGB(
-                                                    255, 102, 18, 236),
-                                              ),
-                                              SizedBox(
-                                                width: 12,
-                                                height: 16,
-                                              ),
-                                              Text(
-                                                'In the filed of NIFT NID,UCEED,and CEED exam       ',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 11,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                width: 20,
-                                                height: 16,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Tutoring,TCDA is renowned for its distinctive for its',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      fontSize: 11,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 2,
-                                                  ),
-                                                  Text(
-                                                    'Distinctive method of educationg students who',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      fontSize: 11,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 2,
-                                                  ),
-                                                  Text(
-                                                    'Want to pursue a career in fashion design.',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      fontSize: 11,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                  SizedBox(
+                                    height: 12,
                                   ),
                                   const Row(
                                     children: [
@@ -651,103 +314,44 @@ class _NewUserIntroState extends State<NewUserIntro> {
                                         width: 6,
                                         height: 38,
                                       ),
-                                      Icon(
-                                        Icons.circle,
-                                        size: 8,
-                                        color:
-                                            Color.fromARGB(255, 102, 18, 236),
-                                      ),
-                                      SizedBox(
-                                        width: 12,
-                                        height: 16,
-                                      ),
                                       Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
                                         children: [
-                                          SizedBox(
-                                            height: 12,
-                                          ),
-                                          Text(
-                                            'TCDA focuses on strengthening young minds with',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 11,
-                                            ),
-                                          ),
-                                          Text(
-                                            'Ideas, suggestions, and techniques.',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 11,
-                                            ),
+                                          Row(
+                                            children: [
+                                              SizedBox(
+                                                height: 16,
+                                              ),
+                                              Text(
+                                                'At TCDA, we coach for NID NIFT UCEED, CEED &\nNATA As an institution committed to excellence, we\nprovide state-of-the-art facilities and access to\ncutting-edge design tools and software. Our aim is\nnot just to teach design but to instill a sense of\npurpose, innovation, and ethical responsibility in our\nstudents.',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w700,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
                                     ],
                                   ),
+                                  SizedBox(
+                                    height: 22,
+                                  ),
                                   const Row(
                                     children: [
                                       SizedBox(
                                         width: 6,
-                                        height: 1,
                                       ),
                                       Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          SizedBox(
-                                            height: 12,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.circle,
-                                                size: 8,
-                                                color: Color.fromARGB(
-                                                    255, 102, 18, 236),
-                                              ),
-                                              SizedBox(
-                                                width: 12,
-                                              ),
-                                              Text(
-                                                'Additionally, the TCDA faculty members engaging',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 11,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Text(
-                                                'And Student-centred teaching style is well-liked',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 11,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                width: 20,
-                                              ),
-                                              Text(
-                                                'And respected by the student population.',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 11,
-                                                ),
-                                              ),
-                                            ],
+                                          Text(
+                                            'Join us at The Creative Design Academy and unlock\nyour creative potential. Let us be your steppingstone\ntowards a fulfilling and rewarding career in the\never-evolving world of design. Together, let s shape\na world of beauty, functionality, and meaningful\nexperiences through the power of creativity!',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 12,
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -761,8 +365,9 @@ class _NewUserIntroState extends State<NewUserIntro> {
                             height: 26,
                           ),
                           Container(
+                            alignment: Alignment.center,
                             padding: const EdgeInsets.all(16),
-                            height: 290,
+                            height: 600,
                             width: MediaQuery.of(context).size.width,
                             decoration: const BoxDecoration(
                               color: Color.fromARGB(255, 224, 224, 241),
@@ -796,7 +401,7 @@ class _NewUserIntroState extends State<NewUserIntro> {
                                       DefaultTextStyle(
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 13,
+                                          fontSize: 12,
                                           color:
                                               Color.fromARGB(255, 102, 18, 236),
                                         ),
@@ -814,229 +419,23 @@ class _NewUserIntroState extends State<NewUserIntro> {
                                     ],
                                   ),
                                   const SizedBox(
-                                    height: 8,
+                                    height: 12,
                                   ),
                                   const Row(
                                     children: [
-                                      SizedBox(
-                                        width: 3,
-                                        height: 38,
-                                      ),
                                       Column(
                                         children: [
                                           Row(
                                             children: [
-                                              Icon(
-                                                Icons.circle,
-                                                size: 8,
-                                                color: Color.fromARGB(
-                                                    255, 102, 18, 236),
-                                              ),
                                               SizedBox(
-                                                width: 12,
+                                                width: 6,
                                                 height: 16,
                                               ),
                                               Text(
-                                                'An intense programme that will help students      ',
+                                                'At The Creative Design Academy (TCDA), we\nspecialize in comprehensive coaching programs\ntailored to help aspiring students prepare for\nprestigious entrance exams such as NID(National\nInstitute of Design),NIFT(National Institute of\nFashion Technology), UCEED(Undergraduate\nCommon Entrance Examination for Design), and\nNATA (National Aptitude Test in Architecture).',
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.w700,
-                                                  fontSize: 11,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                width: 10,
-                                                height: 16,
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Completely prepare for the NIFT, NID, CEED   ',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      fontSize: 11,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 2,
-                                                  ),
-                                                  Text(
-                                                    'And UCEED exams as well as for other desgin',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      fontSize: 11,
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 2,
-                                                  ),
-                                                  Text(
-                                                    'institutes.',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      fontSize: 11,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  const Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 24,
-                                        height: 38,
-                                      ),
-                                      Icon(
-                                        Icons.check_sharp,
-                                        size: 14,
-                                        color:
-                                            Color.fromARGB(255, 102, 18, 236),
-                                      ),
-                                      SizedBox(
-                                        width: 6,
-                                        height: 16,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            height: 12,
-                                          ),
-                                          Text(
-                                            'Expert instructors ideas, suggestions and',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 11,
-                                            ),
-                                          ),
-                                          Text(
-                                            'techniques.',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 11,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 4,
-                                  ),
-                                  const Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 24,
-                                        height: 1,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                height: 6,
-                                              ),
-                                              Icon(
-                                                Icons.check_sharp,
-                                                size: 14,
-                                                color: Color.fromARGB(
-                                                    255, 102, 18, 236),
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Text(
-                                                'Personalized mentoring and study strategies',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 11,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 4,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.check_sharp,
-                                                size: 14,
-                                                color: Color.fromARGB(
-                                                    255, 102, 18, 236),
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Text(
-                                                'Thorough instruction in sketch development',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 11,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 4,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.check_sharp,
-                                                size: 14,
-                                                color: Color.fromARGB(
-                                                    255, 102, 18, 236),
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Text(
-                                                'Convenient scheduling',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 11,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 4,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.check_sharp,
-                                                size: 14,
-                                                color: Color.fromARGB(
-                                                    255, 102, 18, 236),
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Text(
-                                                'With intuitive online study materials',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.w700,
-                                                  fontSize: 11,
+                                                  fontSize: 12,
                                                 ),
                                               ),
                                             ],
@@ -1051,22 +450,64 @@ class _NewUserIntroState extends State<NewUserIntro> {
                                   const Row(
                                     children: [
                                       SizedBox(
-                                        width: 4,
-                                      ),
-                                      Icon(
-                                        Icons.circle,
-                                        size: 8,
-                                        color:
-                                            Color.fromARGB(255, 102, 18, 236),
-                                      ),
-                                      SizedBox(
-                                        width: 12,
+                                        width: 6,
                                       ),
                                       Text(
-                                        'Mock tests, past-year question papers, and ',
+                                        'Our expert instructors possess a deep understanding\nof the exam patterns and requirements, ensuring that\nRstudents receive personalized guidance and training\nto excel in their respective fields of interest.',
                                         style: TextStyle(
                                           fontWeight: FontWeight.w700,
-                                          fontSize: 11,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
+                                  const Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 6,
+                                      ),
+                                      Text(
+                                        'TCDA s coaching approach goes beyond rote\nlearning, emphasizing conceptual understanding,\nproblem-solving skills, and honing creativity to\nenable students to stand out in highly competitive\ndesign entrance exams.',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
+                                  const Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 6,
+                                      ),
+                                      Text(
+                                        'With a proven track record of successful students\nwho have secured top ranks in NID, NIFT, UCEED,\nand NATA exams, TCDA prides itself on being a\nreliable and results-driven coaching center.',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
+                                  const Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 6,
+                                      ),
+                                      Text(
+                                        'Join TCDA s specialized coaching programs and\nembark on your journey towards a thriving career\nin design equipped with the confidence, skills, and\nexpertise necessary to gain admission to the most\nprestigious design institutes in the country.',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 12,
                                         ),
                                       ),
                                     ],
@@ -1074,17 +515,56 @@ class _NewUserIntroState extends State<NewUserIntro> {
                                   const Row(
                                     children: [
                                       SizedBox(
-                                        width: 24,
+                                        width: 6,
                                       ),
                                       Text(
-                                        'Topic-specific tests.',
+                                        'With a proven track record of successful students\nwho have secured top ranks in NID, NIFT, UCEED,\nand NATA exams, TCDA prides itself on being a\nreliable and results-driven coaching center.',
                                         style: TextStyle(
                                           fontWeight: FontWeight.w700,
-                                          fontSize: 11,
+                                          fontSize: 12,
                                         ),
                                       ),
                                     ],
                                   ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  LoadingButton(
+                                    height: 50,
+                                    borderRadius: 100,
+                                    animate: true,
+                                    color: Color.fromARGB(255, 102, 18, 236),
+                                    width: 100,
+                                    loader: Container(
+                                      padding: const EdgeInsets.all(10),
+                                      child: const Center(
+                                        child: SpinKitDoubleBounce(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      "Visit Us",
+                                      style: TextStyle(
+                                        color: Colors
+                                            .white, // Set the desired text color here
+                                      ),
+                                    ),
+                                    onTap: (startLoading, stopLoading,
+                                        buttonState) async {
+                                      if (buttonState == ButtonState.idle) {
+                                        startLoading();
+                                        // Do something here
+                                        await Future.delayed(
+                                            const Duration(seconds: 3));
+                                        stopLoading();
+                                        launch("https://tcda.in/");
+                                      }
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  )
                                 ],
                               ),
                             ),
@@ -1102,21 +582,29 @@ class _NewUserIntroState extends State<NewUserIntro> {
           distance: 112,
           openButtonIcon: const Icon(Icons.chat),
           closeButtonIcon: const Icon(Icons.close),
+          
           children: [
+            // ActionButton(
+            //   backgroundColor: Color.fromARGB(255, 255, 255, 255),
+            //   onPressed: () => launch("https://tcda.in/"),
+            //   icon: Image.asset(
+            //     'assets/web.png',
+            //   ),
+            // ),
             ActionButton(
               onPressed: () => launch("tel://6383783392"),
-              backgroundColor: Color.fromARGB(255, 226, 104, 55),
+              backgroundColor: const Color.fromARGB(255, 226, 104, 55),
               icon: Icon(Icons.call_sharp),
             ),
             ActionButton(
-              backgroundColor: Color.fromARGB(255, 252, 250, 250),
+              backgroundColor: const Color.fromARGB(255, 252, 250, 250),
               onPressed: () => launch("mailto:sanjithmani20@gmail.com"),
               icon: Image.asset(
                 'assets/mail.png',
               ),
             ),
             ActionButton(
-              backgroundColor: Color.fromARGB(255, 44, 155, 22),
+              backgroundColor: const Color.fromARGB(255, 44, 155, 22),
               onPressed: () => launch("https://wa.me/+918608638406"),
               icon: Image.asset(
                 'assets/wp.png',

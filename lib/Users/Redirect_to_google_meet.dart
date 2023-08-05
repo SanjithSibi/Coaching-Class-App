@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tcda_app/doubt/signin_screen.dart';
-import 'package:tcda_app/trail/login.dart';
+import 'package:tcda_app/login.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class OnlineClass extends StatefulWidget {
@@ -12,23 +11,59 @@ class OnlineClass extends StatefulWidget {
 }
 
 class _OnlineClassState extends State<OnlineClass> {
+  // Function to show the logout confirmation dialog
+  Future<void> _showLogoutDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Logout'),
+          content: Text('Are you sure you want to logout?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut().then((value) {
+                  print("Signed out");
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                });
+              },
+              child: Text('Logout'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 253, 249, 249),
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
         automaticallyImplyLeading: false,
         title: Text('Online Class'),
+        leading: IconButton(
+          icon:
+              Icon(Icons.arrow_back), // Use your desired back button icon here
+          onPressed: () {
+            Navigator.pop(
+                context); // This will pop the current page and return to the previous one
+          },
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {
-              FirebaseAuth.instance.signOut().then((value) {
-                print("Signed out");
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginPage()));
-              });
+              _showLogoutDialog(context); // Show the logout confirmation dialog
             },
           ),
         ],
@@ -85,7 +120,7 @@ class _OnlineClassState extends State<OnlineClass> {
                     width: 200,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/Reading book-pana.png'),
+                        image: AssetImage('assets/readingbook.png'),
                         fit: BoxFit.scaleDown,
                       ),
                       color: Colors.white,
@@ -144,7 +179,7 @@ class _OnlineClassState extends State<OnlineClass> {
                     width: 200,
                     decoration: const BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage('assets/communicate.png'),
+                        image: AssetImage('assets/comm.png'),
                         fit: BoxFit.scaleDown,
                       ),
                       color: Colors.white,

@@ -104,8 +104,8 @@ class _Generalability_link_updateState
   Future<void> _delete(String productId) async {
     await _products.doc(productId).delete();
 
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('You have successfully deleted a product')));
+    ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('You have successfully deleted ')));
   }
 
   @override
@@ -188,6 +188,13 @@ class _Generalability_link_openState extends State<Generalability_link_open> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            // Navigate to the previous page
+            Navigator.of(context).pop();
+          },
+        ),
         title: Text('General Ability Test'),
       ),
       body: ListView.builder(
@@ -195,13 +202,39 @@ class _Generalability_link_openState extends State<Generalability_link_open> {
         itemBuilder: (context, index) {
           DocumentSnapshot document = _documents[index];
 
-          return InkWell(
-            onTap: () async {
-              // Handle InkWell tap event
-              launch(document['name']);
-            },
-            child: ListTile(
-              title: Text('Click here to open the Test'),
+          return Container(
+            padding: EdgeInsets.all(35),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: [
+                BoxShadow(
+                    color: const Color.fromARGB(255, 252, 253, 252),
+                    offset: Offset(6.0, 6.0)),
+              ],
+            ),
+            child: Column(
+              children: [
+                Text(
+                  "1. Familiarize yourself with the test format and structure.\n2. Ensure your technical setup meets the requirements.\n3. Practice with sample questions to familiarize yourself with the test style. \n4. Create a quiet and distraction-free environment for the test. \n5. Manage your time effectively for each section. \n6. Read instructions carefully before answering questions. \n7. Answer strategically, eliminating incorrect options for multiple-choice questions. \n8. Review your answers before submitting the test. \n9. Stay calm and focused throughout the test. \n10. Contact technical support if you encounter any issues.",
+                  style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(
+                    height:
+                        20), // Adding some spacing between the text and button
+                TextButton(
+                  onPressed: () async {
+                    launch(document['name']);
+                  },
+                  child: Text(
+                    "Start Test",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        const Color.fromARGB(255, 18, 44, 108)),
+                  ),
+                ),
+              ],
             ),
           );
         },

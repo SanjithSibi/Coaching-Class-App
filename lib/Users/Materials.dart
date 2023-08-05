@@ -1,13 +1,41 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tcda_app/Users/Attendance.dart';
-import 'package:tcda_app/Users/question_papers.dart';
-import 'package:tcda_app/doubt/signin_screen.dart';
-import 'package:tcda_app/Users/study_material.dart';
-import 'package:tcda_app/trail/login.dart';
+import 'package:tcda_app/Users/read_question_papers.dart';
+import 'package:tcda_app/Users/read_study_materials.dart';
+
+import 'package:tcda_app/login.dart';
 
 class StudyMaterials extends StatelessWidget {
   const StudyMaterials({Key? key}) : super(key: key);
+  Future<void> _showLogoutDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Logout'),
+          content: Text('Are you sure you want to logout?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut().then((value) {
+                  print("Signed out");
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                });
+              },
+              child: Text('Logout'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,17 +44,21 @@ class StudyMaterials extends StatelessWidget {
       backgroundColor: Color.fromARGB(255, 253, 249, 249),
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
-        automaticallyImplyLeading: false,
+        // automaticallyImplyLeading: false,
         title: Text('Study Materials'),
+        leading: IconButton(
+          icon:
+              Icon(Icons.arrow_back), // Use your desired back button icon here
+          onPressed: () {
+            Navigator.pop(
+                context); // This will pop the current page and return to the previous one
+          },
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {
-              FirebaseAuth.instance.signOut().then((value) {
-                print("Signed out");
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginPage()));
-              });
+              _showLogoutDialog(context); // Show the logout confirmation dialog
             },
           ),
         ],
@@ -45,7 +77,7 @@ class StudyMaterials extends StatelessWidget {
                   width: 200,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/Reading glasses-bro.png'),
+                      image: AssetImage('assets/read.png'),
                       fit: BoxFit.scaleDown,
                     ),
                     color: Colors.white,
@@ -65,9 +97,9 @@ class StudyMaterials extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const Materials(),
+                      builder: (context) => PDFListViews(),
                     ),
-                  );  
+                  );
                 },
               ),
               const SizedBox(
@@ -103,7 +135,7 @@ class StudyMaterials extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => QuestionPapers(),
+                      builder: (context) => QestionPapersView(),
                     ),
                   );
                 },

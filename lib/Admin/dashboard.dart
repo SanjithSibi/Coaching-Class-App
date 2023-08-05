@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
-import 'package:tcda_app/Admin/adding_study_materials.dart';
 import 'package:tcda_app/Admin/delete_user.dart';
+import 'package:tcda_app/Admin/new_enquries.dart';
+import 'package:tcda_app/Admin/update_sample_question_papers.dart';
 import 'package:tcda_app/Admin/updating_test_links.dart';
-import 'package:tcda_app/trail/login.dart';
+import 'package:tcda_app/Admin/add_materials.dart';
+import 'package:tcda_app/login.dart';
 import 'package:tcda_app/Admin/add_new_user.dart';
 
 class DashBoard extends StatefulWidget {
@@ -15,6 +18,37 @@ class DashBoard extends StatefulWidget {
 
 class _DashBoardState extends State<DashBoard> {
   final _avancedDrawerController = AdvancedDrawerController();
+  Future<void> _showLogoutDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Logout'),
+          content: Text('Are you sure you want to logout?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage(),
+                  ),
+                );
+              },
+              child: Text('Logout'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return AdvancedDrawer(
@@ -1140,14 +1174,23 @@ class _DashBoardState extends State<DashBoard> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => UploadFiles(),
+                          builder: (context) => updateStudyMaterials(),
                         ),
                       );
                     },
                   ),
-                  // ListTile(
-                  //   title: Text("Hi Hello Everryone"),
-                  // ),
+                  ListTile(
+                    leading: Icon(Icons.book_online_sharp),
+                    title: Text("Update Question Papers"),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => updateQuestionPapers(),
+                        ),
+                      );
+                    },
+                  ),
                   ListTile(
                     leading: Icon(Icons.update),
                     title: Text("Update Test Links"),
@@ -1161,15 +1204,23 @@ class _DashBoardState extends State<DashBoard> {
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.logout_outlined),
-                    title: Text("Logout"),
+                    leading: Icon(Icons.update),
+                    title: Text("New Enquiries"),
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LoginPage(),
+                          builder: (context) => const new_enquries(),
                         ),
                       );
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.logout_outlined),
+                    title: Text("Logout"),
+                    onTap: () {
+                      _showLogoutDialog(
+                          context); // Show the logout confirmation dialog
                     },
                   ),
                 ],

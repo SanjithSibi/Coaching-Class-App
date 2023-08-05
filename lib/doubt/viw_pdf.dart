@@ -1,50 +1,63 @@
+import 'package:draggable_fab/draggable_fab.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-class FirestoreExample extends StatefulWidget {
+
+class MyAppd extends StatelessWidget {
   @override
-  _FirestoreExampleState createState() => _FirestoreExampleState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Draggable FAB Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: MyHomePage(title: 'Draggable FAB Demo Home Page'),
+    );
+  }
 }
 
-class _FirestoreExampleState extends State<FirestoreExample> {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  List<DocumentSnapshot> _documents = [];
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
-  Future<void> fetchData() async {
-    QuerySnapshot querySnapshot = await _firestore.collection('products').get();
-    setState(() {
-      _documents = querySnapshot.docs;
-    });
-  }
+  final String title;
 
   @override
-  void initState() {
-    super.initState();
-    fetchData();
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Firestore Example'),
+        title: Text(widget.title),
       ),
-      body: ListView.builder(
-        itemCount: _documents.length,
-        itemBuilder: (context, index) {
-          DocumentSnapshot document = _documents[index];
-
-          return InkWell(
-            onTap: () async {
-              // Handle InkWell tap event
-              launch(document['name']);
-            },
-            child: ListTile(
-              title: Text('CLICK'),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'You have pushed the button this many times:',
             ),
-          );
-        },
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: DraggableFab(
+        child: FloatingActionButton(
+          onPressed: _incrementCounter,
+          child: Icon(Icons.add),
+        ),
       ),
     );
   }

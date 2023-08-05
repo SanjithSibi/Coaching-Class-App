@@ -43,6 +43,8 @@ dependencies:
   # firebase_storage: ^11.2.3
   # cloud_firestore: ^4.8.1
   # file_picker: ^5.2.5
+  flutter_datetime_picker: ^1.5.1
+
   cloud_firestore: ^4.3.2
   firebase_storage: ^11.0.11
   file_picker: ^5.2.5
@@ -65,6 +67,19 @@ dependencies:
   flutter_pdfview: ^1.0.2
   nice_loading_button: ^0.0.1
   flutter_spinkit: ^5.2.0
+  awesome_notifications: ^0.7.4+1
+  flutter_timezone: ^1.0.6
+  device_info_plus: ^9.0.2
+  awesome_notifications_fcm: ^0.7.4+1
+  datetime_picker_formfield: ^2.0.1
+  flutter_local_notifications: ^9.3.1
+  firebase_notification_scheduler: ^0.0.2
+  get: ^4.6.5
+  fl_chart: ^0.40.0
+  draggable_fab: ^0.1.4
+  timezone: ^0.8.0
+  pie_chart: ^5.3.2
+  charts_flutter: ^0.12.0
 
 dev_dependencies:
   flutter_test:
@@ -90,6 +105,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/logo.png
+    - assets/tcda_image.jpg
+    - assets/readingbook.png
     - assets/attend-removebg-preview.png
     - assets/study-removebg-preview.png
     - assets/clas-removebg-preview.png
@@ -98,17 +115,18 @@ flutter:
     - assets/Online calendar-pana.png
     - assets/Online learning-cuate.png
     - assets/Online test-pana.png
-    - assets/Reading book-pana.png
+    - assets/read.png
     - assets/Add notes-pana.png
     - assets/intro.png
     - assets/wp.png
+    - assets/web.png
     - assets/mail.png
     - assets/darwings2.png
     - assets/darwings1.png
     - assets/reasoning.png
     - assets/gk.png
     - assets/nonverbal.png
-    - assets/communicate.png
+    - assets/comm.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:tcda_app/Admin/dashboard.dart';
 import 'package:tcda_app/Users/existing_users_icon_page.dart';
-import 'package:tcda_app/New%20User/new_user_signup.dart';
-import 'package:tcda_app/doubt/signin_screen.dart';
+import 'package:tcda_app/New%20User/new_user_login.dart';
 import 'package:tcda_app/reusable_widgets/reusable_widgets.dart';
 import 'package:tcda_app/utils/color_utils.dart';
 
-import '../Admin/add_new_user.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -81,7 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           validator: (value) {
                             if (value!.length == 0) {
-                              return "Email cannot be    empty";
+                              return "Email cannot be empty";
                             }
                             if (!RegExp(
                                     "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
@@ -256,8 +254,8 @@ class _LoginPageState extends State<LoginPage> {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => NewUser()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => NewUserLogin()));
           },
           child: const Text(
             " Sign Up",

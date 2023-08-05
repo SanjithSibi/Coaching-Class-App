@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tcda_app/Admin/drawing_test_link.dart';
 import 'package:tcda_app/Admin/general_ability_test.dart';
 import 'package:tcda_app/Admin/non_verbal_reasoning_test_link.dart';
-import 'package:tcda_app/trail/login.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:tcda_app/login.dart';
 
 class OnlineTest extends StatefulWidget {
   const OnlineTest({super.key});
@@ -14,23 +13,57 @@ class OnlineTest extends StatefulWidget {
 }
 
 class _OnlineTestState extends State<OnlineTest> {
+  // Function to show the logout confirmation dialog
+  Future<void> _showLogoutDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Logout'),
+          content: Text('Are you sure you want to logout?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut().then((value) {
+                  print("Signed out");
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                });
+              },
+              child: Text('Logout'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 253, 249, 249),
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
         automaticallyImplyLeading: false,
-        title: Text('Online Test '),
+        title: Text('Online Test'),
+         leading: IconButton(
+          icon: Icon(Icons.arrow_back), // Use your desired back button icon here
+          onPressed: () {
+            Navigator.pop(context); // This will pop the current page and return to the previous one
+          },
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () {
-              FirebaseAuth.instance.signOut().then((value) {
-                print("Signed out");
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginPage()));
-              });
+              _showLogoutDialog(context); // Show the logout confirmation dialog
             },
           ),
         ],
@@ -39,12 +72,6 @@ class _OnlineTestState extends State<OnlineTest> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                height: 30,
-              ),
               InkWell(
                 child: Container(
                   margin: const EdgeInsets.all(20.0),
@@ -133,7 +160,6 @@ class _OnlineTestState extends State<OnlineTest> {
                       )
                     ],
                   ),
-                  child: const Center(child: Text("")),
                 ),
                 onTap: () {
                   Navigator.push(
@@ -146,7 +172,7 @@ class _OnlineTestState extends State<OnlineTest> {
               SizedBox(
                 height: 10,
               ),
-              const Text("Non Verbal Reasoning"),
+              const Text("Reasoning"),
               // SizedBox(
               //   height: 50,
               // ),

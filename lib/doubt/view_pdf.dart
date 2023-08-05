@@ -1,68 +1,93 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
+import 'package:flutter/cupertino.dart';
 
-class LoadPdf extends StatefulWidget {
-  const LoadPdf({super.key});
+// void main() {
+//   runApp(const MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return const CupertinoApp(
+//       // Remove the debug banner
+//       debugShowCheckedModeBanner: false,
+//       title: 'Kindacode.com',
+//       home: HomePage(),
+//     );
+//   }
+// }
+
+class HoePage extends StatefulWidget {
+  const HoePage({Key? key}) : super(key: key);
 
   @override
-  State<LoadPdf> createState() => _LoadPdfState();
+  State<HoePage> createState() => _HoePageState();
 }
 
-class _LoadPdfState extends State<LoadPdf> {
-  firebase_storage.FirebaseStorage storage =
-      firebase_storage.FirebaseStorage.instance;
+class _HoePageState extends State<HoePage> {
+  // Determine whether the red box is shown or not
+  bool _isShown = true;
 
-  Future<void> listExample() async {
-    firebase_storage.ListResult result = await firebase_storage
-        .FirebaseStorage.instance
-        .ref()
-        .child('notes')
-        .listAll();
-
-    result.items.forEach((firebase_storage.Reference ref) {
-      print('Found file: $ref');
-    });
-
-    result.prefixes.forEach((firebase_storage.Reference ref) {
-      print('Found directory: $ref');
-    });
-  }
-
-  Future<void> downloadURLExample() async {
-    String downloadURL = await firebase_storage.FirebaseStorage.instance
-        .ref('Users/[TMP.pdf]')
-        .getDownloadURL();
-    print(downloadURL);
-    PDFDocument doc = await PDFDocument.fromURL(downloadURL);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                ViewPDF(doc))); //Notice the Push Route once this is done.
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    listExample();
-    downloadURLExample();
-    print("All done!");
+  void _delete(BuildContext context) {
+    showCupertinoDialog(
+        context: context,
+        builder: (BuildContext ctx) {
+          return CupertinoAlertDialog(
+            title: const Text('Please Confirm'),
+            content: const Text('Are you sure to remove the text?'),
+            actions: [
+              // The "Yes" button
+              CupertinoDialogAction(
+                onPressed: () {
+                  setState(() {
+                    _isShown = false;
+                    Navigator.of(context).pop();
+                  });
+                },
+                isDefaultAction: true,
+                isDestructiveAction: true,
+                child: const Text('Yes'),
+              ),
+              // The "No" button
+              CupertinoDialogAction(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                isDefaultAction: false,
+                isDestructiveAction: false,
+                child: const Text('No'),
+              )
+            ],
+          );
+        });
   }
 
   @override
   Widget build(BuildContext context) {
-    return CircularProgressIndicator();
-  }
-}
-
-class ViewPDF extends StatelessWidget {
-  PDFDocument document;
-  ViewPDF(this.document);
-
-  @override
-  Widget build(BuildContext context) {
-    return PDFViewer(document: document);
+    return CupertinoPageScaffold(
+        navigationBar: const CupertinoNavigationBar(
+          middle: Text('Kindacode.com'),
+        ),
+        child: Center(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 150,
+              ),
+              CupertinoButton(
+                  onPressed: _isShown == true ? () => _delete(context) : null,
+                  child: const Text('Remove The Paragraph Below')),
+              const SizedBox(
+                height: 30,
+              ),
+              if (_isShown == true)
+                const Padding(
+                  padding: EdgeInsets.all(30),
+                  child: Text(
+                                'tusrtyu'),                )
+            ],
+          ),
+        ));
   }
 }
