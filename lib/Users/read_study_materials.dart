@@ -208,6 +208,18 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context); // Pop the current screen to go back
+          },
+        ),
+      ),
       body: document != null
           ? PDFViewer(document: document!)
           : Center(
@@ -216,3 +228,38 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
     );
   }
 }
+
+// class PDFViewerScreen extends StatefulWidget {
+//   final String pdfUrl;
+
+//   PDFViewerScreen({required this.pdfUrl});
+
+//   @override
+//   State<PDFViewerScreen> createState() => _PDFViewerScreenState();
+// }
+
+// class _PDFViewerScreenState extends State<PDFViewerScreen> {
+//   PDFDocument? document;
+
+//   void initialisePdf() async {
+//     document = await PDFDocument.fromURL(widget.pdfUrl);
+//     setState(() {});
+//   }
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     initialisePdf();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: document != null
+//           ? PDFViewer(document: document!)
+//           : Center(
+//               child: CircularProgressIndicator(),
+//             ),
+//     );
+//   }
+// }

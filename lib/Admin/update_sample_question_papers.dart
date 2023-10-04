@@ -59,6 +59,7 @@ class _updateQuestionPapersState extends State<updateQuestionPapers> {
       });
 
       print("PDF uploaded successfully");
+      getAllPdf();
     }
   }
 
@@ -217,6 +218,18 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context); 
+          },
+        ),
+      ),
       body: document != null
           ? PDFViewer(document: document!)
           : Center(

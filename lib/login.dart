@@ -7,7 +7,6 @@ import 'package:tcda_app/New%20User/new_user_login.dart';
 import 'package:tcda_app/reusable_widgets/reusable_widgets.dart';
 import 'package:tcda_app/utils/color_utils.dart';
 
-
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -25,189 +24,212 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
+        child: Stack(
+          children: [
+            Image.asset(
+              "assets/login.png",
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                hexStringToColor("FF7817"),
-                hexStringToColor("122C6C"),
-                // hexStringToColor("FF7817")
-              ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
-              child: Center(
-                child: Container(
-                  margin: EdgeInsets.all(12),
-                  child: Form(
-                    key: _formkey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 30,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        logoWidget("assets/logo.png"),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        TextFormField(
-                          controller: emailController,
-                          cursorColor: Colors.white,
-                          style:
-                              TextStyle(color: Colors.white.withOpacity(0.9)),
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(
-                              Icons.person_2_outlined,
-                              color: Colors.white70,
+              fit: BoxFit.cover,
+            ),
+            Column(
+              children: <Widget>[
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: Center(
+                    child: Container(
+                      margin: EdgeInsets.all(12),
+                      child: Form(
+                        key: _formkey,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 30,
                             ),
-                            labelText: 'Enter Your Mail',
-                            labelStyle:
-                                TextStyle(color: Colors.white.withOpacity(0.9)),
-                            filled: true,
-                            enabled: true,
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            fillColor: Colors.white.withOpacity(0.3),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                borderSide: const BorderSide(
-                                    width: 0, style: BorderStyle.none)),
-                          ),
-                          validator: (value) {
-                            if (value!.length == 0) {
-                              return "Email cannot be empty";
-                            }
-                            if (!RegExp(
-                                    "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                                .hasMatch(value)) {
-                              return ("Please enter a valid email");
-                            } else {
-                              return null;
-                            }
-                          },
-                          onSaved: (value) {
-                            emailController.text = value!;
-                          },
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        TextFormField(
-                          controller: passwordController,
-                          obscureText: _isObscure3,
-                          cursorColor: Colors.white,
-                          style:
-                              TextStyle(color: Colors.white.withOpacity(0.9)),
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(
-                              Icons.lock_outline,
-                              color: Colors.white70,
+                            SizedBox(
+                              height: 20,
                             ),
-                            suffixIcon: IconButton(
-                                icon: Icon(_isObscure3
-                                    ? Icons.visibility
-                                    : Icons.visibility_off),
-                                color: Colors.white70,
+                            SizedBox(
+                              height: 210,
+                            ),
+                            TextFormField(
+                              controller: emailController,
+                              cursorColor: Colors.black,
+                              style: TextStyle(
+                                color: Colors.black.withOpacity(0.9),
+                              ),
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                  Icons.person_2_outlined,
+                                  color: Colors.black,
+                                ),
+                                labelText: 'Enter Your Mail',
+                                labelStyle: TextStyle(
+                                  color: Color.fromARGB(255, 97, 97, 97),
+                                ),
+                                filled: true,
+                                enabled: true,
+                                contentPadding: const EdgeInsets.only(
+                                  left: 14.0,
+                                  bottom: 8.0,
+                                  top: 15.0,
+                                ),
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                fillColor: Colors.white.withOpacity(0.3),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderSide: BorderSide(
+                                    color: Colors
+                                        .white, // Set the border color here
+                                    width: 1.0, // Set the border width
+                                  ),
+                                ),
+                              ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "Email cannot be empty";
+                                }
+                                if (!RegExp(
+                                        r"^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-z]+$")
+                                    .hasMatch(value)) {
+                                  return "Please enter a valid email";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              onSaved: (value) {
+                                emailController.text = value!;
+                              },
+                              keyboardType: TextInputType.emailAddress,
+                            ),
+                            SizedBox(
+                              height: 25,
+                            ),
+                            TextFormField(
+                              controller: passwordController,
+                              obscureText: _isObscure3,
+                              cursorColor: Colors.black,
+                              style: TextStyle(
+                                color: Colors.black.withOpacity(0.9),
+                              ),
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.lock_outline,
+                                    color: Colors.black),
+                                suffixIcon: IconButton(
+                                  icon: Icon(_isObscure3
+                                      ? Icons.visibility
+                                      : Icons.visibility_off),
+                                  color: Colors.white70,
+                                  onPressed: () {
+                                    setState(() {
+                                      _isObscure3 = !_isObscure3;
+                                    });
+                                  },
+                                ),
+                                labelText: "Password",
+                                labelStyle: TextStyle(
+                                  color: Color.fromARGB(255, 97, 97, 97),
+                                ),
+                                filled: true,
+                                enabled: true,
+                                contentPadding: const EdgeInsets.only(
+                                  left: 14.0,
+                                  bottom: 8.0,
+                                  top: 15.0,
+                                ),
+                                floatingLabelBehavior:
+                                    FloatingLabelBehavior.never,
+                                fillColor: Colors.white.withOpacity(0.3),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  borderSide: BorderSide(
+                                    color:
+                                        Colors.red, // Set the border color here
+                                    width: 1.0, // Set the border width
+                                  ),
+                                ),
+                              ),
+                              validator: (value) {
+                                RegExp regex = new RegExp(r'^.{6,}$');
+                                if (value!.isEmpty) {
+                                  return "Password cannot be empty";
+                                }
+                                if (!regex.hasMatch(value)) {
+                                  return "Please enter a valid password (min. 6 characters)";
+                                } else {
+                                  return null;
+                                }
+                              },
+                              onSaved: (value) {
+                                passwordController.text = value!;
+                              },
+                              keyboardType: TextInputType.emailAddress,
+                            ),
+                            SizedBox(
+                              height: 22,
+                            ),
+                            Container(
+                              width: 130,
+                              height: 50,
+                              margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(90)),
+                              child: ElevatedButton(
                                 onPressed: () {
                                   setState(() {
-                                    _isObscure3 = !_isObscure3;
+                                    visible = true;
                                   });
-                                }),
-                            labelText: "Password",
-                            labelStyle:
-                                TextStyle(color: Colors.white.withOpacity(0.9)),
-                            filled: true,
-                            enabled: true,
-                            contentPadding: const EdgeInsets.only(
-                                left: 14.0, bottom: 8.0, top: 15.0),
-                            floatingLabelBehavior: FloatingLabelBehavior.never,
-                            fillColor: Colors.white.withOpacity(0.3),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                borderSide: const BorderSide(
-                                    width: 0, style: BorderStyle.none)),
-                          ),
-                          validator: (value) {
-                            RegExp regex = new RegExp(r'^.{6,}$');
-                            if (value!.isEmpty) {
-                              return "Password cannot be empty";
-                            }
-                            if (!regex.hasMatch(value)) {
-                              return ("please enter valid password min. 6 character");
-                            } else {
-                              return null;
-                            }
-                          },
-                          onSaved: (value) {
-                            passwordController.text = value!;
-                          },
-                          keyboardType: TextInputType.emailAddress,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          width: 200,
-                          height: 50,
-                          margin: const EdgeInsets.fromLTRB(0, 10, 0, 20),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(90)),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                visible = true;
-                              });
-                              signIn(emailController.text,
-                                  passwordController.text);
-                            },
-                            child: Text(
-                              "LOG IN",
-                              style: const TextStyle(
-                                  color: Color.fromARGB(255, 250, 247, 245),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
+                                  signIn(emailController.text,
+                                      passwordController.text);
+                                },
+                                child: Text(
+                                  "LOG IN",
+                                  style: const TextStyle(
+                                      color: Color.fromARGB(255, 250, 247, 245),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
+                                ),
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.resolveWith(
+                                            (states) {
+                                      if (states
+                                          .contains(MaterialState.pressed)) {
+                                        return Colors.black26;
+                                      }
+                                      return Color.fromARGB(255, 18, 44, 108);
+                                    }),
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30)))),
+                              ),
                             ),
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.resolveWith((states) {
-                                  if (states.contains(MaterialState.pressed)) {
-                                    return Colors.black26;
-                                  }
-                                  return Color.fromARGB(255, 18, 44, 108);
-                                }),
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30)))),
-                          ),
+                            SizedBox(
+                              height: 100,
+                            ),
+                            signUpOption(),
+                            Visibility(
+                                maintainSize: true,
+                                maintainAnimation: true,
+                                maintainState: true,
+                                visible: visible,
+                                child: Container(
+                                    child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ))),
+                          ],
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        signUpOption(),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Visibility(
-                            maintainSize: true,
-                            maintainAnimation: true,
-                            maintainState: true,
-                            visible: visible,
-                            child: Container(
-                                child: CircularProgressIndicator(
-                              color: Colors.white,
-                            ))),
-                      ],
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
           ],
         ),
@@ -250,7 +272,7 @@ class _LoginPageState extends State<LoginPage> {
       children: <Widget>[
         const Text(
           "New User ?",
-          style: TextStyle(color: Colors.white70),
+          style: TextStyle(color: Color.fromARGB(179, 19, 2, 94)),
         ),
         GestureDetector(
           onTap: () {
@@ -259,7 +281,9 @@ class _LoginPageState extends State<LoginPage> {
           },
           child: const Text(
             " Sign Up",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: Color.fromARGB(179, 19, 2, 94),
+                fontWeight: FontWeight.bold),
           ),
         ),
       ],
@@ -277,9 +301,17 @@ class _LoginPageState extends State<LoginPage> {
         route();
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
-          print('No user found for that email.');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('No user found for that email'),
+            ),
+          );
         } else if (e.code == 'wrong-password') {
-          print('Wrong password provided for that user.');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Wrong password provided for that user.'),
+            ),
+          );
         }
       }
     }

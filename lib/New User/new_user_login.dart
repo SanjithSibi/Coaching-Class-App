@@ -9,7 +9,7 @@ class NewUserLogin extends StatefulWidget {
   _NewUserLoginState createState() => _NewUserLoginState();
 }
 
-class _NewUserLoginState extends State<NewUserLogin>{
+class _NewUserLoginState extends State<NewUserLogin> {
 // text fields' controllers
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _numberController = TextEditingController();
@@ -121,6 +121,21 @@ class _NewUserLoginState extends State<NewUserLogin>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              size: 25,
+            ),
+            onPressed: () {
+              // Handle the back button press here, e.g., pop the current route
+              Navigator.of(context).pop();
+            },
+          ),
+          title: Row(
+              // Your title content here
+              ),
+        ),
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Stack(
@@ -131,20 +146,6 @@ class _NewUserLoginState extends State<NewUserLogin>{
                   children: [
                     const SizedBox(
                       height: 4,
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(12),
-                      height: 52,
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.arrow_back_rounded,
-                            color: Colors.black,
-                            size: 30,
-                          ),
-                        ],
-                      ),
                     ),
                     Container(
                       padding: EdgeInsets.all(16),
@@ -254,7 +255,7 @@ class _NewUserLoginState extends State<NewUserLogin>{
                                   Row(
                                     children: [
                                       const Icon(
-                                        Icons.circle_outlined,
+                                        Icons.arrow_right_alt_outlined,
                                         size: 17,
                                         color:
                                             Color.fromARGB(255, 102, 18, 236),

@@ -17,8 +17,8 @@ class _QestionPapersViewState extends State<QestionPapersView> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Logout'),
-          content: Text('Are you sure you want to logout?'),
+          title: const Text('Logout'),
+          content: const Text('Are you sure you want to logout?'),
           actions: [
             TextButton(
               onPressed: () {
@@ -34,7 +34,7 @@ class _QestionPapersViewState extends State<QestionPapersView> {
                       MaterialPageRoute(builder: (context) => LoginPage()));
                 });
               },
-              child: Text('Logout'),
+              child: const Text('Logout'),
             ),
           ],
         );
@@ -132,18 +132,18 @@ class _QestionPapersViewState extends State<QestionPapersView> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 40,
                       ),
                       Container(
-                        child: Column(
+                        child: const Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Stack(
                               alignment: AlignmentDirectional.topEnd,
                               clipBehavior: Clip.none,
                               children: [
-                                const Card(
+                                Card(
                                   child: Padding(
                                     padding:
                                         EdgeInsets.fromLTRB(24, 30, 24, 30),
@@ -160,13 +160,13 @@ class _QestionPapersViewState extends State<QestionPapersView> {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Center(
                         child: Text(
                           pdfData[index]['name'],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 14,
                           ),
                         ),
@@ -209,9 +209,21 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context); // Pop the current screen to go back
+          },
+        ),
+      ),
       body: document != null
           ? PDFViewer(document: document!)
-          : Center(
+          : const Center(
               child: CircularProgressIndicator(),
             ),
     );

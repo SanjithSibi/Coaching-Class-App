@@ -1,22 +1,229 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
-import 'package:tcda_app/Admin/delete_user.dart';
+import 'package:tcda_app/Admin/Student%20Management/invoice.dart';
+import 'package:tcda_app/Admin/Student%20Management/delete_user.dart';
 import 'package:tcda_app/Admin/new_enquries.dart';
+import 'package:tcda_app/Admin/collections/total_collection.dart';
+import 'package:tcda_app/Admin/expence/totalexpences.dart';
 import 'package:tcda_app/Admin/update_sample_question_papers.dart';
 import 'package:tcda_app/Admin/updating_test_links.dart';
 import 'package:tcda_app/Admin/add_materials.dart';
+import 'package:tcda_app/Admin/expence/yearwise_expence.dart';
 import 'package:tcda_app/login.dart';
-import 'package:tcda_app/Admin/add_new_user.dart';
+import 'package:tcda_app/Admin/Student%20Management/add_new_user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tcda_app/reusable_widgets/notifications/home_page.dart';
+
+Future<Map<String, dynamic>> fetchmonthData() async {
+  DateTime now = DateTime.now();
+  int currentYear = now.year;
+  int currentMonth = now.month;
+
+  QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
+      .instance
+      .collection('expence')
+      .where('timestamp',
+          isGreaterThanOrEqualTo: DateTime(currentYear, currentMonth, 1))
+      .where('timestamp',
+          isLessThan: DateTime(currentYear, currentMonth + 1, 1))
+      .get();
+
+  List<Map<String, dynamic>> eventDataList = querySnapshot.docs
+      .map((QueryDocumentSnapshot<Map<String, dynamic>> document) =>
+          document.data())
+      .toList();
+
+  double totalPrice = eventDataList
+      .map((eventData) => eventData['price'] as double)
+      .fold(0, (previousValue, element) => previousValue + element);
+
+  return {
+    'eventList': eventDataList,
+    'totalPrice': totalPrice,
+    'eventCount': eventDataList.length,
+  };
+}
+
+Future<Map<String, dynamic>> fetchmonthcollection() async {
+  DateTime now = DateTime.now();
+  int currentYear = now.year;
+  int currentMonth = now.month;
+
+  QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
+      .instance
+      .collection('collection')
+      .where('timestamp',
+          isGreaterThanOrEqualTo: DateTime(currentYear, currentMonth, 1))
+      .where('timestamp',
+          isLessThan: DateTime(currentYear, currentMonth + 1, 1))
+      .get();
+
+  List<Map<String, dynamic>> eventDataList = querySnapshot.docs
+      .map((QueryDocumentSnapshot<Map<String, dynamic>> document) =>
+          document.data())
+      .toList();
+
+  double totalPrice = eventDataList
+      .map((eventData) => eventData['price'] as double)
+      .fold(0, (previousValue, element) => previousValue + element);
+
+  return {
+    'eventList': eventDataList,
+    'totalPrice': totalPrice,
+    'eventCount': eventDataList.length,
+  };
+}
+
+Future<List<Map<String, dynamic>>> fetchDataByCurrentYear() async {
+  DateTime now = DateTime.now();
+  int currentYear = now.year;
+
+  QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
+      .instance
+      .collection('expence')
+      .where('timestamp', isGreaterThanOrEqualTo: DateTime(currentYear, 1, 1))
+      .where('timestamp', isLessThan: DateTime(currentYear + 1, 1, 1))
+      .get();
+
+  List<Map<String, dynamic>> currentYearData = querySnapshot.docs
+      .map((QueryDocumentSnapshot<Map<String, dynamic>> document) =>
+          document.data())
+      .toList();
+
+  return currentYearData;
+}
+
+Future<Map<String, dynamic>> fetchData() async {
+  QuerySnapshot<Map<String, dynamic>> querySnapshot =
+      await FirebaseFirestore.instance.collection('expence').get();
+
+  List<Map<String, dynamic>> eventDataList = querySnapshot.docs
+      .map((QueryDocumentSnapshot<Map<String, dynamic>> document) =>
+          document.data())
+      .toList();
+
+  double totalPrice = eventDataList
+      .map((eventData) => eventData['price'] as double)
+      .fold(0, (previousValue, element) => previousValue + element);
+
+  return {
+    'eventList': eventDataList,
+    'totalPrice': totalPrice,
+    'eventCount': eventDataList.length,
+  };
+}
+
+Future<Map<String, dynamic>> fetchcollectionByCurrentYear() async {
+  DateTime now = DateTime.now();
+  int currentYear = now.year;
+
+  QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
+      .instance
+      .collection('collection')
+      .where('timestamp', isGreaterThanOrEqualTo: DateTime(currentYear, 1, 1))
+      .where('timestamp', isLessThan: DateTime(currentYear + 1, 1, 1))
+      .get();
+
+  List<Map<String, dynamic>> currentYearData = querySnapshot.docs
+      .map((QueryDocumentSnapshot<Map<String, dynamic>> document) =>
+          document.data())
+      .toList();
+
+  double totalPrice = currentYearData
+      .map((eventData) => eventData['price'] as double)
+      .fold(0, (previousValue, element) => previousValue + element);
+
+  return {
+    'eventList': currentYearData,
+    'totalPrice': totalPrice,
+    'eventCount': currentYearData.length,
+  };
+}
+
+Future<Map<String, dynamic>> totalcollection() async {
+  QuerySnapshot<Map<String, dynamic>> querySnapshot =
+      await FirebaseFirestore.instance.collection('collection').get();
+
+  List<Map<String, dynamic>> eventDataList = querySnapshot.docs
+      .map((QueryDocumentSnapshot<Map<String, dynamic>> document) =>
+          document.data())
+      .toList();
+
+  double totalPrice = eventDataList
+      .map((eventData) => eventData['price'] as double)
+      .fold(0, (previousValue, element) => previousValue + element);
+
+  return {
+    'eventList': eventDataList,
+    'totalPrice': totalPrice,
+    'eventCount': eventDataList.length,
+  };
+}
 
 class DashBoard extends StatefulWidget {
-  const DashBoard({super.key});
-
   @override
   State<DashBoard> createState() => _DashBoardState();
 }
 
 class _DashBoardState extends State<DashBoard> {
+  double totalExpenses = 0.0;
+  double totalyExpenses = 0.0;
+  double totalmonthExpenses = 0.0;
+  double monthcollection = 0.0;
+  double totalyearcollection = 0.0;
+  double totalcollections = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchDataByCurrentYear().then((data) {
+      double totalPrice = data
+          .map((eventData) => eventData['price'] as double)
+          .fold(0, (previousValue, element) => previousValue + element);
+      setState(() {
+        totalExpenses = totalPrice;
+      });
+    });
+    fetchData().then((data) {
+      double totalPrice = data['totalPrice']; // Get total price from data
+
+      setState(() {
+        totalyExpenses = totalPrice;
+      });
+    });
+    fetchmonthData().then((data) {
+      double totalPrice = data['totalPrice']; // Get total price from data
+
+      setState(() {
+        totalmonthExpenses = totalPrice;
+      });
+    });
+    fetchmonthcollection().then((data) {
+      double totalPrice = data['totalPrice']; // Get total price from data
+      int eventCount = data['eventCount']; // Get total count from data
+
+      setState(() {
+        monthcollection = totalPrice;
+      });
+    });
+    fetchcollectionByCurrentYear().then((data) {
+      double totalPrice = data['totalPrice']; // Get total price from data
+
+      setState(() {
+        totalyearcollection = totalPrice;
+      });
+    });
+    totalcollection().then((data) {
+      double totalPrice = data['totalPrice']; // Get total price from data
+      int eventCount = data['eventCount']; // Get total count from data
+
+      setState(() {
+        totalcollections = totalPrice;
+      });
+    });
+  }
+
   final _avancedDrawerController = AdvancedDrawerController();
   Future<void> _showLogoutDialog(BuildContext context) async {
     return showDialog(
@@ -90,8 +297,8 @@ class _DashBoardState extends State<DashBoard> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      height: 132,
-                      width: 99,
+                      height: 180,
+                      width: 90,
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 250, 250, 250),
                         borderRadius: BorderRadius.all(
@@ -134,18 +341,18 @@ class _DashBoardState extends State<DashBoard> {
                             height: 6,
                           ),
                           Container(
-                            height: 22,
-                            width: 22,
+                            height: 50,
+                            width: 60,
                             decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 241, 68, 68)),
+                              shape: BoxShape.circle,
+                            ),
                             child: const Center(
                               child: Text(
                                 "25",
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
@@ -157,8 +364,8 @@ class _DashBoardState extends State<DashBoard> {
                       width: 16,
                     ),
                     Container(
-                      height: 132,
-                      width: 98,
+                      height: 180,
+                      width: 90,
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 250, 250, 250),
                         borderRadius: BorderRadius.all(
@@ -201,18 +408,18 @@ class _DashBoardState extends State<DashBoard> {
                             height: 6,
                           ),
                           Container(
-                            height: 22,
-                            width: 22,
+                            height: 50,
+                            width: 60,
                             decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 241, 68, 68)),
+                              shape: BoxShape.circle,
+                            ),
                             child: const Center(
                               child: Text(
                                 "25",
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
@@ -224,8 +431,8 @@ class _DashBoardState extends State<DashBoard> {
                       width: 16,
                     ),
                     Container(
-                      height: 132,
-                      width: 98,
+                      height: 180,
+                      width: 90,
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 250, 250, 250),
                         borderRadius: BorderRadius.all(
@@ -271,18 +478,18 @@ class _DashBoardState extends State<DashBoard> {
                             height: 6,
                           ),
                           Container(
-                            height: 22,
-                            width: 22,
+                            height: 50,
+                            width: 60,
                             decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 241, 68, 68)),
+                              shape: BoxShape.circle,
+                            ),
                             child: const Center(
                               child: Text(
                                 "25",
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
@@ -293,14 +500,14 @@ class _DashBoardState extends State<DashBoard> {
                   ],
                 ),
                 const SizedBox(
-                  height: 24,
+                  height: 36,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      height: 132,
-                      width: 98,
+                      height: 180,
+                      width: 90,
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 250, 250, 250),
                         borderRadius: BorderRadius.all(
@@ -326,16 +533,13 @@ class _DashBoardState extends State<DashBoard> {
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                image: NetworkImage(
-                                  'https://yt3.ggpht.com/a/AATXAJzt4CB9A8NGuSK1y78HKbgMIfErf1Y-CJG4RYrpRQ=s900-c-k-c0xffffffff-no-rj-mo',
-                                ),
-                              ),
+                                  image: AssetImage("assets/coletiond.png")),
                             ),
                           ),
                           const Text(
-                            "Today collection",
+                            "Monthly collection",
                             style: TextStyle(
-                              fontSize: 9,
+                              fontSize: 8,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -343,20 +547,25 @@ class _DashBoardState extends State<DashBoard> {
                             height: 8,
                           ),
                           Container(
-                            height: 22,
-                            width: 22,
+                            height: 50,
+                            width: 60,
                             decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 241, 68, 68)),
-                            child: const Center(
-                              child: Text(
-                                "25",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '$monthcollection',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
                         ],
@@ -366,8 +575,8 @@ class _DashBoardState extends State<DashBoard> {
                       width: 16,
                     ),
                     Container(
-                      height: 132,
-                      width: 98,
+                      height: 180,
+                      width: 90,
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 250, 250, 250),
                         borderRadius: BorderRadius.all(
@@ -393,14 +602,11 @@ class _DashBoardState extends State<DashBoard> {
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                image: NetworkImage(
-                                  'https://yt3.ggpht.com/a/AATXAJzt4CB9A8NGuSK1y78HKbgMIfErf1Y-CJG4RYrpRQ=s900-c-k-c0xffffffff-no-rj-mo',
-                                ),
-                              ),
+                                  image: AssetImage("assets/coletiond.png")),
                             ),
                           ),
                           const Text(
-                            "monthly collection",
+                            "Yearly collection",
                             style: TextStyle(
                               fontSize: 9,
                               fontWeight: FontWeight.bold,
@@ -410,20 +616,25 @@ class _DashBoardState extends State<DashBoard> {
                             height: 8,
                           ),
                           Container(
-                            height: 22,
-                            width: 22,
+                            height: 50,
+                            width: 60,
                             decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 241, 68, 68)),
-                            child: const Center(
-                              child: Text(
-                                "25",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '$totalyearcollection',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
                         ],
@@ -433,8 +644,8 @@ class _DashBoardState extends State<DashBoard> {
                       width: 16,
                     ),
                     Container(
-                      height: 132,
-                      width: 98,
+                      height: 180,
+                      width: 90,
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 250, 250, 250),
                         borderRadius: BorderRadius.all(
@@ -460,14 +671,11 @@ class _DashBoardState extends State<DashBoard> {
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                image: NetworkImage(
-                                  'https://yt3.ggpht.com/a/AATXAJzt4CB9A8NGuSK1y78HKbgMIfErf1Y-CJG4RYrpRQ=s900-c-k-c0xffffffff-no-rj-mo',
-                                ),
-                              ),
+                                  image: AssetImage("assets/coletiond.png")),
                             ),
                           ),
                           const Text(
-                            "Today experience",
+                            "Total Collection",
                             style: TextStyle(
                               fontSize: 9,
                               fontWeight: FontWeight.bold,
@@ -477,20 +685,25 @@ class _DashBoardState extends State<DashBoard> {
                             height: 8,
                           ),
                           Container(
-                            height: 22,
-                            width: 22,
+                            height: 50,
+                            width: 60,
                             decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 241, 68, 68)),
-                            child: const Center(
-                              child: Text(
-                                "25",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '$totalcollections',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
                         ],
@@ -499,14 +712,14 @@ class _DashBoardState extends State<DashBoard> {
                   ],
                 ),
                 const SizedBox(
-                  height: 24,
+                  height: 36,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      height: 132,
-                      width: 98,
+                      height: 180,
+                      width: 90,
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 250, 250, 250),
                         borderRadius: BorderRadius.all(
@@ -548,20 +761,25 @@ class _DashBoardState extends State<DashBoard> {
                             height: 8,
                           ),
                           Container(
-                            height: 22,
-                            width: 22,
+                            height: 50,
+                            width: 60,
                             decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 241, 68, 68)),
-                            child: const Center(
-                              child: Text(
-                                "25",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '$totalmonthExpenses',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
                         ],
@@ -571,8 +789,8 @@ class _DashBoardState extends State<DashBoard> {
                       width: 16,
                     ),
                     Container(
-                      height: 132,
-                      width: 98,
+                      height: 180,
+                      width: 90,
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 250, 250, 250),
                         borderRadius: BorderRadius.all(
@@ -614,20 +832,25 @@ class _DashBoardState extends State<DashBoard> {
                             height: 8,
                           ),
                           Container(
-                            height: 22,
-                            width: 22,
+                            height: 50,
+                            width: 60,
                             decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 241, 68, 68)),
-                            child: const Center(
-                              child: Text(
-                                "25",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '$totalExpenses',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
                         ],
@@ -637,8 +860,8 @@ class _DashBoardState extends State<DashBoard> {
                       width: 16,
                     ),
                     Container(
-                      height: 132,
-                      width: 98,
+                      height: 180,
+                      width: 90,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/download.png"),
@@ -684,20 +907,26 @@ class _DashBoardState extends State<DashBoard> {
                             height: 8,
                           ),
                           Container(
-                            height: 22,
-                            width: 22,
+                            height: 50,
+                            width: 60,
                             decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 241, 68, 68)),
-                            child: const Center(
-                              child: Text(
-                                "25",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                              shape: BoxShape.circle,
+                              // color: Color.fromARGB(255, 241, 68, 68),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '$totalyExpenses',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
                         ],
@@ -708,412 +937,8 @@ class _DashBoardState extends State<DashBoard> {
                 const SizedBox(
                   height: 24,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 132,
-                      width: 98,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/download.png"),
-                          fit: BoxFit.cover,
-                        ),
-                        color: Color.fromARGB(255, 250, 250, 250),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(14),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromARGB(255, 200, 201, 241),
-                            blurRadius: 6.0,
-                            spreadRadius: 2.0,
-                            offset: Offset(0.0, 0.0),
-                          ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.all(8),
-                      alignment: Alignment.bottomCenter,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            height: 68,
-                            width: 178,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                    'https://cdn3.iconfinder.com/data/icons/schooling-flat/614/4057_-_Male_Graduate-512.png'),
-                              ),
-                            ),
-                          ),
-                          const Text(
-                            "Live student",
-                            style: TextStyle(
-                              fontSize: 9,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Container(
-                            height: 22,
-                            width: 22,
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 241, 68, 68)),
-                            child: const Center(
-                              child: Text(
-                                "25",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Container(
-                      height: 132,
-                      width: 98,
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 250, 250, 250),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(14),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromARGB(255, 200, 201, 241),
-                            blurRadius: 6.0,
-                            spreadRadius: 2.0,
-                            offset: Offset(0.0, 0.0),
-                          ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.all(8),
-                      alignment: Alignment.bottomCenter,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            height: 68,
-                            width: 178,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                    'https://www.nexuspropertymanagement.com/sites/default/files/Realtor.jpg'),
-                              ),
-                            ),
-                          ),
-                          const Text(
-                            "Left student",
-                            style: TextStyle(
-                              fontSize: 9,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Container(
-                            height: 22,
-                            width: 22,
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 241, 68, 68)),
-                            child: const Center(
-                              child: Text(
-                                "25",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Container(
-                      height: 132,
-                      width: 98,
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 250, 250, 250),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(14),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromARGB(255, 200, 201, 241),
-                            blurRadius: 6.0,
-                            spreadRadius: 2.0,
-                            offset: Offset(0.0, 0.0),
-                          ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.all(8),
-                      alignment: Alignment.bottomCenter,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            height: 68,
-                            width: 178,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                    'https://th.bing.com/th/id/OIP.tW6XRjkXxFJPDGbn_qsFtwHaIN?pid=ImgDet&w=1488&h=1649&rs=1'),
-                              ),
-                            ),
-                          ),
-                          const Text(
-                            "Due Ammount",
-                            style: TextStyle(
-                              fontSize: 9,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Container(
-                            height: 22,
-                            width: 22,
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 241, 68, 68)),
-                            child: const Center(
-                              child: Text(
-                                "25",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
                 const SizedBox(
                   height: 24,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 132,
-                      width: 98,
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 250, 250, 250),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(14),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromARGB(255, 200, 201, 241),
-                            blurRadius: 6.0,
-                            spreadRadius: 2.0,
-                            offset: Offset(0.0, 0.0),
-                          ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.all(8),
-                      alignment: Alignment.bottomCenter,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            height: 68,
-                            width: 178,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                    'https://th.bing.com/th/id/OIP.uPwWQq-lj7ARyhFYfHwKXQAAAA?pid=ImgDet&w=300&h=300&rs=1'),
-                              ),
-                            ),
-                          ),
-                          // const Text(
-                          //   "Due Amount Reminder",
-                          //   style: TextStyle(
-                          //     fontSize: 8,
-                          //     fontWeight: FontWeight.bold,
-                          //   ),
-                          // ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Container(
-                            height: 22,
-                            width: 22,
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 241, 68, 68)),
-                            child: const Center(
-                              child: Text(
-                                "25",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Container(
-                      height: 132,
-                      width: 98,
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 250, 250, 250),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(14),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromARGB(255, 200, 201, 241),
-                            blurRadius: 6.0,
-                            spreadRadius: 2.0,
-                            offset: Offset(0.0, 0.0),
-                          ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.all(8),
-                      alignment: Alignment.bottomCenter,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            height: 68,
-                            width: 178,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                    'https://fintos.tech/wp-content/uploads/2021/07/Loan-Application-768x576.png'),
-                              ),
-                            ),
-                          ),
-                          const Text(
-                            "Today Due Reminder",
-                            style: TextStyle(
-                              fontSize: 8,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Container(
-                            height: 22,
-                            width: 22,
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 241, 68, 68)),
-                            child: const Center(
-                              child: Text(
-                                "25",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Container(
-                      height: 132,
-                      width: 98,
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 250, 250, 250),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(14),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromARGB(255, 200, 201, 241),
-                            blurRadius: 6.0,
-                            spreadRadius: 2.0,
-                            offset: Offset(0.0, 0.0),
-                          ),
-                        ],
-                      ),
-                      padding: const EdgeInsets.all(8),
-                      alignment: Alignment.bottomCenter,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            height: 68,
-                            width: 178,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                    'https://th.bing.com/th/id/OIP.jnHo_X4kb8stD-5h9XauiQHaIr?pid=ImgDet&rs=1'),
-                              ),
-                            ),
-                          ),
-                          const Text(
-                            "Today follow up",
-                            style: TextStyle(
-                              fontSize: 8,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Container(
-                            height: 22,
-                            width: 22,
-                            decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color.fromARGB(255, 241, 68, 68)),
-                            child: const Center(
-                              child: Text(
-                                "25",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
                 ),
               ],
             ),
@@ -1123,107 +948,163 @@ class _DashBoardState extends State<DashBoard> {
 
   drawerWidgets() {
     return Container(
+        height: 500,
         decoration: BoxDecoration(),
         child: Column(
           children: [
             SizedBox(
-              height: 200,
+              height: 80,
             ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.white,
-              ),
-              child: Column(
-                children: [
-                  ClipRRect(
+            Expanded(
+              // Use Expanded to take up all available space
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                ),
+                child: ListView(
+                  // Wrap Column with ListView
+                  shrinkWrap:
+                      true, // Important to make ListView work inside a Column
+                  children: [
+                    ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.asset(
                         "assets/logo.png",
-                        height: 100,
-                        width: 100,
-                      )),
-                  ListTile(
-                    leading: Icon(Icons.person),
-                    title: Text("Add User"),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Register(),
-                        ),
-                      );
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.person_off),
-                    title: Text("Delete User"),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const DeleteUser(),
-                        ),
-                      );
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.book_online_sharp),
-                    title: Text("Add Study Materials"),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => updateStudyMaterials(),
-                        ),
-                      );
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.book_online_sharp),
-                    title: Text("Update Question Papers"),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => updateQuestionPapers(),
-                        ),
-                      );
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.update),
-                    title: Text("Update Test Links"),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const UpdatingTestLinks(),
-                        ),
-                      );
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.update),
-                    title: Text("New Enquiries"),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const new_enquries(),
-                        ),
-                      );
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.logout_outlined),
-                    title: Text("Logout"),
-                    onTap: () {
-                      _showLogoutDialog(
-                          context); // Show the logout confirmation dialog
-                    },
-                  ),
-                ],
+                        height: 60,
+                        width: 60,
+                      ),
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.person),
+                      title: Text("Add User"),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Register(),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.person_off),
+                      title: Text("Delete User"),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const DeleteUser(),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.book_online_sharp),
+                      title: Text("Add Study Materials"),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => updateStudyMaterials(),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.book_online_sharp),
+                      title: Text("Update Question Papers"),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => updateQuestionPapers(),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.update),
+                      title: Text("Update Test Links"),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const UpdatingTestLinks(),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.update),
+                      title: Text("New Enquiries"),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const new_enquries(),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.money),
+                      title: Text("Add collection"),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TotalCollection(),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.money_sharp),
+                      title: Text("Add expence"),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TotalExpense(),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.money_sharp),
+                      title: Text("Student Management"),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => InvoiceDetails(),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.lock_clock_sharp),
+                      title: Text("FollowUp Remainder"),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomePage(),
+                          ),
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.logout_outlined),
+                      title: Text("Logout"),
+                      onTap: () {
+                        _showLogoutDialog(
+                            context); // Show the logout confirmation dialog
+                      },
+                    ),
+                  ],
+                ),
               ),
             )
           ],

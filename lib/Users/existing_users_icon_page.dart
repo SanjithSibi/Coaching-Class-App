@@ -24,21 +24,25 @@ class HomeScreen extends StatelessWidget {
               child: Text('Cancel'),
             ),
             TextButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut().then((value) {
-                  print("Signed out");
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
-                });
+              onPressed: () async {
+                try {
+                  await FirebaseAuth.instance.signOut();
+                  // After successful logout, navigate to the login screen
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  );
+                } catch (e) {
+                  print("Error during logout: $e");
+                  // Handle any errors that occur during logout
+                }
               },
               child: Text('Logout'),
-            ),
+            )
           ],
         );
       },
     );
   }
-
 
   @override
   Widget build(BuildContext context) {

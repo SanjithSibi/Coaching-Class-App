@@ -59,6 +59,9 @@ class _updateStudyMaterialsState extends State<updateStudyMaterials> {
       });
 
       print("PDF uploaded successfully");
+
+      // Refresh the PDF list by calling getAllPdf again
+      getAllPdf();
     }
   }
 
@@ -217,6 +220,18 @@ class _PDFViewerScreenState extends State<PDFViewerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context); // Pop the current screen to go back
+          },
+        ),
+      ),
       body: document != null
           ? PDFViewer(document: document!)
           : Center(

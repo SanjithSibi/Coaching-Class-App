@@ -2,8 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../login.dart';
-// import 'model.dart';
+import 'package:tcda_app/Admin/dashboard.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -38,12 +37,18 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange[900],
+      // backgroundColor: Colors.orange[900],
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Container(
               color: Colors.orangeAccent[700],
+              // decoration: BoxDecoration(
+              //   image: DecorationImage(
+              //     image: AssetImage('assets/delete.png'),
+              //     fit: BoxFit.cover, // You can adjust the fit as needed
+              //   ),
+              // ),
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               child: SingleChildScrollView(
@@ -56,21 +61,21 @@ class _RegisterState extends State<Register> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: 80,
+                          height: 143,
                         ),
                         Text(
                           "Add New User",
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w500,
                             color: Colors.white,
-                            fontSize: 40,
+                            fontSize: 27,
                           ),
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         SizedBox(
-                          height: 50,
+                          height: 175,
                         ),
                         TextFormField(
                           controller: emailController,
@@ -106,7 +111,7 @@ class _RegisterState extends State<Register> {
                           keyboardType: TextInputType.emailAddress,
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 23,
                         ),
                         TextFormField(
                           obscureText: _isObscure,
@@ -150,7 +155,7 @@ class _RegisterState extends State<Register> {
                           onChanged: (value) {},
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 23,
                         ),
                         TextFormField(
                           obscureText: _isObscure2,
@@ -191,18 +196,25 @@ class _RegisterState extends State<Register> {
                           onChanged: (value) {},
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 30,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              "Role : ",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
+                            Column(
+                              children: [
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Text(
+                                  "Role : ",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
                             ),
                             DropdownButton<String>(
                               dropdownColor: Colors.blue[900],
@@ -234,7 +246,7 @@ class _RegisterState extends State<Register> {
                           ],
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 30,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -301,6 +313,6 @@ class _RegisterState extends State<Register> {
     CollectionReference ref = FirebaseFirestore.instance.collection('users');
     ref.doc(user!.uid).set({'email': emailController.text, 'rool': rool});
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => LoginPage()));
+        context, MaterialPageRoute(builder: (context) => DashBoard()));
   }
 }
